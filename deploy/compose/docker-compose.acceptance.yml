@@ -1,0 +1,31 @@
+# 隔离验收覆盖层：用于 M6「全新安装」自动化验收。
+# 与正式 deploy/compose/docker-compose.yml 叠加使用：
+#   docker compose -p hq-accept \
+#     -f deploy/compose/docker-compose.yml \
+#     -f deploy/compose/docker-compose.acceptance.yml \
+#     --env-file <throwaway .env>  up -d --wait
+# 作用：改写 project 名（→ 全新命名卷，绝不触碰正式 feishu-hq 卷）+ 把所有宿主端口
+# 重映射到空闲端口（ports 用 !override 整体替换而非追加）。不改动任何业务/迁移。
+name: hq-accept
+
+services:
+  postgres:
+    ports: !override
+      - "127.0.0.1:25432:5432"
+
+  minio:
+    ports: !override
+      - "127.0.0.1:29000:9000"
+      - "127.0.0.1:29001:9001"
+
+  mysql:
+    ports: !override
+      - "127.0.0.1:23306:3306"
+
+  kodbox:
+    ports: !override
+      - "127.0.0.1:28080:80"
+
+  api:
+    ports: !override
+      - "127.0.0.1:23000:3000"

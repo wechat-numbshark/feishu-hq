@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: 类型检查 + 架构检查 + 单元测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 类型检查（tsc --noEmit，strict 基线）
+        run: npm run typecheck
+
+      - name: 架构与迁移检查
+        run: npm run check
+
+      - name: 单元测试（权限引擎 / 会话 / 飞书 / 组织同步）
+        run: npm test

@@ -1,0 +1,29 @@
+groups:
+  - name: feishu-hq
+    rules:
+      - alert: FeishuHqApiDown
+        expr: up{job="feishu-hq-api"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "总部 OS API 不可达"
+          description: "Prometheus 连续 2 分钟无法抓取 /metrics。"
+
+      - alert: FeishuHqDatabaseDown
+        expr: hq_database_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "总部 OS 数据库连接异常"
+          description: "/metrics 报告 hq_database_up=0。"
+
+      - alert: FeishuHqHigh5xx
+        expr: rate(hq_errors_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "总部 OS 5xx 错误率偏高"
+          description: "近 5 分钟 5xx 速率超过 0.1/s。"

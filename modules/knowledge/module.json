@@ -1,0 +1,9 @@
+{
+  "name": "knowledge",
+  "schema": "content",
+  "description": "文档、文件、知识、版本和业务资源关联",
+  "ownedEntities": ["document", "document_version", "file_object", "resource_link", "knowledge_chunk"],
+  "publishes": ["content.document.indexed.v1", "content.file.archived.v1"],
+  "consumes": ["project.project.created.v1", "finance.contract.activated.v1"]
+}
+

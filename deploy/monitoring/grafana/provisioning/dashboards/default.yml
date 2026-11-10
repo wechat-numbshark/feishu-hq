@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: feishu-hq
+    orgId: 1
+    folder: "总部 OS"
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

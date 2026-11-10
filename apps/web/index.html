@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%231f6feb%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27sans-serif%27%3E总%3C/text%3E%3C/svg%3E">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f2ec">
+  <meta name="description" content="把总部建到飞书——面向中小企业的一体化经营与协作系统。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="总部 OS · 把总部建到飞书">
+  <meta property="og:description" content="面向中小企业的一体化经营、协作与企业 AI 系统。">
+  <meta property="og:image" content="/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="总部 OS · 把总部建到飞书">
+  <meta name="twitter:description" content="面向中小企业的一体化经营、协作与企业 AI 系统。">
+  <meta name="twitter:image" content="/og.png">
+  <title>总部 OS · 把总部建到飞书</title>
+  <script>try{if(localStorage.getItem('hq_has_session')==='1')document.documentElement.classList.add('session-expected')}catch{}</script>
+  <link rel="preload" href="/api.js?v=1.3.10" as="script" fetchpriority="high">
+  <link rel="preload" href="/app.js?v=1.3.10" as="script" fetchpriority="high">
+  <link rel="stylesheet" href="/styles.css?v=1.3.10" fetchpriority="high">
+</head>
+<body class="auth-pending">
+  <section class="login-gate" aria-labelledby="login-title">
+    <div class="login-brand"><span class="brand-mark"><i></i><i></i><i></i></span><span><b>总部 OS</b><small>把总部建到飞书</small></span></div>
+    <div class="login-visual" aria-hidden="true">
+      <div class="login-grid-lines"></div>
+      <div class="core-node"><span>✦</span><b>AI</b></div>
+      <span class="orbit-node n1">项目</span><span class="orbit-node n2">销售</span><span class="orbit-node n3">人事</span><span class="orbit-node n4">财务</span><span class="orbit-node n5">IT</span><span class="orbit-node n6">知识</span>
+      <div class="login-statement"><small>ONE COMPANY · ONE OPERATING SYSTEM</small><h2>公司的每一次协作，<br>都汇入同一个总部。</h2><p>飞书负责连接人，总部 OS 负责连接业务与决策。</p></div>
+    </div>
+    <div class="login-card-wrap">
+      <div class="login-card">
+        <div class="login-eyebrow"><span></span> ENTERPRISE SIGN IN</div>
+        <h1 id="login-title">欢迎回到总部</h1>
+        <p>登录后，AI 将在你的权限范围内读取企业数据并协助工作。</p>
+        <button class="login-button feishu-login" type="button" disabled aria-disabled="true"><span class="feishu-logo">飞</span><b>使用飞书登录</b><em>暂未开放</em></button>
+        <div class="login-divider"><span>体验企业已开放</span></div>
+        <button class="login-button demo-login" type="button"><span class="demo-logo">未</span><b>进入体验企业</b><em>无需注册</em></button>
+        <div class="login-status" role="status"></div>
+        <small class="login-legal">登录即表示你同意服务条款与隐私政策。体验企业仅包含演示数据。</small>
+      </div>
+      <div class="login-trust"><span><i></i>租户隔离</span><span><i></i>权限继承</span><span><i></i>全程审计</span></div>
+    </div>
+  </section>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="总部导航">
+      <a class="brand" href="#overview" aria-label="总部 OS 首页">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span><b>总部 OS</b><small>把总部建到飞书</small></span>
+      </a>
+
+      <nav class="primary-nav">
+        <p class="nav-label">工作台</p>
+        <a class="nav-item active" href="#overview" data-view="overview"><span class="nav-icon">⌂</span><span>经营总览</span></a>
+        <a class="nav-item" href="#workbench" data-view="workbench"><span class="nav-icon">◫</span><span>我的工作台</span></a>
+        <a class="nav-item" href="#org" data-view="org"><span class="nav-icon">⚶</span><span>组织全景</span></a>
+        <a class="nav-item" href="#ai" data-view="ai"><span class="nav-icon spark">✦</span><span>AI 总部</span><em>⌘ K</em></a>
+        <a class="nav-item demo-only" href="#demo" data-view="demo"><span class="nav-icon">◇</span><span>演示中心</span><b class="nav-new">NEW</b></a>
+        <p class="nav-label">业务中心</p>
+        <a class="nav-item" href="#dashboard" data-view="dashboard"><span class="nav-icon">▣</span><span>高层看板</span></a>
+        <a class="nav-item" href="#projects" data-view="projects"><span class="nav-icon">◫</span><span>项目管理</span></a>
+        <a class="nav-item" href="#strategy" data-view="strategy"><span class="nav-icon">◈</span><span>战略 OKR</span></a>
+        <a class="nav-item" href="#dev" data-view="dev"><span class="nav-icon">⌁</span><span>研发中心</span></a>
+        <a class="nav-item" href="#crm" data-view="crm"><span class="nav-icon">◎</span><span>客户与销售</span></a>
+        <a class="nav-item" href="#contracts" data-view="contracts"><span class="nav-icon">▥</span><span>合同与订阅</span></a>
+        <p class="nav-label">行业运营</p>
+        <a class="nav-item" href="#manufacturing" data-view="manufacturing"><span class="nav-icon">⚙</span><span>制造执行</span></a>
+        <a class="nav-item" href="#supplychain" data-view="supplychain"><span class="nav-icon">⇄</span><span>供应链</span></a>
+        <a class="nav-item" href="#quality" data-view="quality"><span class="nav-icon">✓</span><span>质量管理</span></a>
+        <a class="nav-item" href="#equipment" data-view="equipment"><span class="nav-icon">⚒</span><span>设备管理</span></a>
+        <a class="nav-item" href="#sales" data-view="sales"><span class="nav-icon">▤</span><span>销售订单</span></a>
+        <a class="nav-item" href="#hr" data-view="hr"><span class="nav-icon">♙</span><span>人才与招聘</span><b class="nav-dot"></b></a>
+        <a class="nav-item" href="#finance" data-view="finance"><span class="nav-icon">¥</span><span>财务管理</span></a>
+        <a class="nav-item" href="#it" data-view="it"><span class="nav-icon">⌘</span><span>IT 与资产</span></a>
+        <a class="nav-item" href="#knowledge" data-view="knowledge"><span class="nav-icon">▤</span><span>知识与文件</span></a>
+        <a class="nav-item" href="#approvals" data-view="approvals"><span class="nav-icon">✓</span><span>审批中心</span><b class="nav-dot" id="approval-badge" style="display:none"></b></a>
+        <p class="nav-label">系统</p>
+        <a class="nav-item" href="#settings" data-view="settings"><span class="nav-icon">⚙</span><span>管理设置</span></a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <button class="company-switch" type="button">
+          <span class="company-avatar">·</span>
+          <span><b>加载中…</b><small>正在读取企业信息</small></span>
+          <i>⌄</i>
+        </button>
+        <div class="system-state"><span></span> 正在检查系统状态…</div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" aria-label="打开菜单">☰</button>
+        <div class="breadcrumb"><span>总部</span><i>/</i><b id="page-title">经营总览</b></div>
+        <button class="command-trigger" type="button" aria-label="打开全局搜索"><span>⌕</span> 搜索人员、项目、客户或直接问 AI <kbd>⌘ K</kbd></button>
+        <div class="top-actions">
+          <button class="icon-button notification-button" type="button" aria-label="通知" aria-expanded="false">♧<i class="alert-dot" id="notification-dot" style="display:none"></i></button>
+          <button class="user-button" type="button"><span>GN</span><i>⌄</i></button>
+        </div>
+      </header>
+
+      <div class="main-grid">
+        <section class="content" id="content" aria-live="polite">
+          <div class="welcome-row">
+            <div>
+              <div class="eyebrow"><span></span> 正在读取日期…</div>
+              <h1>欢迎回到总部。</h1>
+              <p>登录后将在此汇总今日需要你决策的事项与经营要点。</p>
+            </div>
+            <div class="welcome-actions">
+              <button class="btn ghost" type="button">导出经营简报</button>
+              <button class="btn primary ask-ai" type="button"><span>✦</span> 让 AI 汇报今日重点</button>
+            </div>
+          </div>
+
+          <section class="decision-strip" aria-label="今日决策">
+            <div class="decision-heading"><span class="pulse-ring"><i></i></span><div><small>今日决策</small><strong>正在读取待办…</strong></div></div>
+            <div class="decision-list">
+              <p class="loading-text" style="padding:12px;color:var(--muted);font-size:9px">正在加载需要你判断的真实事项…</p>
+            </div>
+            <button class="more-decisions" type="button" style="display:none"></button>
+          </section>
+
+          <section class="metric-grid" aria-label="核心经营指标">
+            <article class="metric-card revenue"><div class="metric-top"><span>本月回款</span></div><strong>—</strong></article>
+            <article class="metric-card"><div class="metric-top"><span>销售漏斗</span></div><strong>—</strong></article>
+            <article class="metric-card"><div class="metric-top"><span>项目健康度</span></div><strong>—</strong></article>
+            <article class="metric-card"><div class="metric-top"><span>在职人数</span></div><strong>—</strong></article>
+          </section>
+
+          <div class="dashboard-grid">
+            <section class="panel project-panel">
+              <header class="panel-head"><div><span class="section-kicker">交付雷达</span><h2>进行中的项目</h2></div><button type="button" data-view-jump="projects">查看全部 →</button></header>
+              <div class="project-list">
+                <p class="loading-text" style="padding:16px;color:var(--muted);font-size:9px">正在加载进行中的项目…</p>
+              </div>
+            </section>
+
+            <section class="panel cash-panel">
+              <header class="panel-head"><div><span class="section-kicker">现金流</span><h2>未来 30 天</h2></div><button class="more-button" type="button">•••</button></header>
+              <div class="cash-summary"><div><small>预计流入（30天应收）</small><strong>—</strong></div><div><small>待付支出（报销/应付）</small><strong>—</strong></div></div>
+              <div class="cash-chart" aria-label="现金流趋势">
+                <p class="loading-text" style="display:flex;align-items:center;justify-content:center;height:100%;min-height:96px;color:var(--muted);font-size:9px;padding:12px;text-align:center">现金流趋势将在接入真实收支数据后展示</p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <aside class="ai-rail" aria-label="AI 总部助理">
+          <header class="ai-head"><div class="ai-orb"><span>✦</span></div><div><b>总部助理</b><small><i></i> 在你的权限范围内工作</small></div><button type="button" aria-label="AI 助理选项">•••</button></header>
+          <div class="ai-context"><span>当前上下文</span><button type="button">经营总览 ×</button></div>
+          <div class="chat-flow">
+            <div class="assistant-message">
+              <p>正在梳理当前真实经营数据，稍后为你列出值得关注的要点。</p>
+            </div>
+          </div>
+          <div class="suggestions"><span>你可以继续问</span><button type="button">生成本周经营简报</button><button type="button">哪些事项需要我决策</button></div>
+          <form class="ai-composer"><textarea rows="2" aria-label="向总部助理提问" placeholder="问经营数据，或让 AI 帮你执行工作…"></textarea><div><button class="attach" type="button" aria-label="添加附件">＋</button><span>AI 会遵循你的数据权限</span><button class="send" type="submit" aria-label="发送">↑</button></div></form>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <script>
+    // 首屏先渲染 HTML/CSS；大脚本在 DOM 可用后异步装载，避免阻塞首次绘制。
+    (function () {
+      var load = function (src, next) {
+        var s = document.createElement('script');
+        s.src = src; s.async = true;
+        s.onload = next || null;
+        document.body.appendChild(s);
+      };
+      var start = function () { load('/api.js?v=1.3.10', function () { load('/app.js?v=1.3.10'); }); };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+      else start();
+    })();
+  </script>
+</body>
+</html>

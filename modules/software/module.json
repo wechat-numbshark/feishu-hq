@@ -1,0 +1,8 @@
+{
+  "name": "software",
+  "schema": "sw",
+  "description": "软件研发域：需求池、缺陷跟踪、迭代 Sprint（燃尽/看板）与版本发布",
+  "ownedEntities": ["requirement", "defect", "iteration", "iteration_item", "version"],
+  "publishes": ["sw.requirement.created.v1", "sw.defect.created.v1", "sw.defect.closed.v1", "sw.version.released.v1"],
+  "consumes": ["project.task.changed.v1"]
+}

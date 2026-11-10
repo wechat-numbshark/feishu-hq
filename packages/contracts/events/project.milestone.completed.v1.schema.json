@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/project.milestone.completed.v1.schema.json",
+  "title": "project.milestone.completed.v1 payload",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "tenant_scope": { "type": "string" }
+  },
+  "additionalProperties": true
+}

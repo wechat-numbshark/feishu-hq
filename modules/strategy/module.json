@@ -1,0 +1,9 @@
+{
+  "name": "strategy",
+  "schema": "strategy",
+  "description": "战略、OKR、关键结果和进展",
+  "ownedEntities": ["okr_period", "objective", "key_result", "checkin"],
+  "publishes": ["strategy.objective.created.v1", "strategy.key_result.progressed.v1"],
+  "consumes": ["project.project.progressed.v1"]
+}
+

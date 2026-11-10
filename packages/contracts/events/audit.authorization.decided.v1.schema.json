@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/audit.authorization.decided.v1.schema.json",
+  "title": "audit.authorization.decided.v1 payload",
+  "type": "object",
+  "required": ["subjectId", "action", "resourceId", "allowed", "matchedPolicyIds", "traceId"],
+  "properties": {
+    "subjectId": { "type": "string" },
+    "delegatedBySubjectId": { "type": "string" },
+    "action": { "type": "string" },
+    "resourceId": { "type": "string" },
+    "allowed": { "type": "boolean" },
+    "matchedPolicyIds": { "type": "array", "items": { "type": "string" } },
+    "maskedFieldIds": { "type": "array", "items": { "type": "string" } },
+    "traceId": { "type": "string" }
+  },
+  "additionalProperties": false
+}
+

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/event-envelope.schema.json",
+  "title": "Domain Event Envelope",
+  "type": "object",
+  "required": ["eventId", "eventType", "eventVersion", "occurredAt", "tenantId", "actorId", "resource", "traceId", "idempotencyKey", "payload"],
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "eventType": { "type": "string", "minLength": 3 },
+    "eventVersion": { "type": "integer", "minimum": 1 },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "tenantId": { "type": "string", "format": "uuid" },
+    "actorId": { "type": "string", "format": "uuid" },
+    "resource": {
+      "type": "object",
+      "required": ["id", "domain", "type"],
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "domain": { "type": "string" },
+        "type": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "traceId": { "type": "string", "minLength": 8 },
+    "idempotencyKey": { "type": "string", "minLength": 8 },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false
+}
+

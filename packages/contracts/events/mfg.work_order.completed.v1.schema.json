@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/mfg.work_order.completed.v1.schema.json",
+  "title": "mfg.work_order.completed.v1 payload",
+  "type": "object",
+  "required": ["wo_number", "completed_qty"],
+  "properties": {
+    "wo_number": { "type": "string" },
+    "completed_qty": { "type": "number" },
+    "total_cost_cents": { "type": "number" },
+    "unit_cost_cents": { "type": "number" }
+  },
+  "additionalProperties": false
+}

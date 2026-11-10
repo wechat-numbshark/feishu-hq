@@ -1,0 +1,25 @@
+{
+  "name": "project",
+  "schema": "project",
+  "description": "产品、项目、需求、任务、计划、问题和风险",
+  "ownedEntities": [
+    "product",
+    "project",
+    "requirement",
+    "task",
+    "plan",
+    "issue",
+    "risk",
+    "worklog"
+  ],
+  "publishes": [
+    "project.project.created.v1",
+    "project.project.progressed.v1",
+    "project.task.changed.v1",
+    "project.milestone.completed.v1"
+  ],
+  "consumes": [
+    "crm.opportunity.won.v1",
+    "platform.employment.changed.v1"
+  ]
+}

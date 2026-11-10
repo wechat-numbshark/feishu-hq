@@ -1,0 +1,24 @@
+{
+  "name": "hr",
+  "schema": "hr",
+  "description": "招聘、候选人、员工生命周期和绩效",
+  "ownedEntities": [
+    "job_requisition",
+    "candidate",
+    "application",
+    "interview",
+    "offer",
+    "employment_event",
+    "leave_balance",
+    "performance_review"
+  ],
+  "publishes": [
+    "hr.offer.accepted.v1",
+    "hr.employment.started.v1",
+    "hr.employment.ended.v1",
+    "hr.review.completed.v1"
+  ],
+  "consumes": [
+    "platform.organization.synced.v1"
+  ]
+}

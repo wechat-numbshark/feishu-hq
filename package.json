@@ -1,0 +1,59 @@
+{
+  "name": "feishu-hq",
+  "version": "1.2.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "modules/*"
+  ],
+  "scripts": {
+    "dev": "node --experimental-strip-types apps/api/src/main.ts & node --experimental-strip-types apps/worker/src/main.ts",
+    "dev:api": "node --experimental-strip-types apps/api/src/main.ts",
+    "dev:worker": "node --experimental-strip-types apps/worker/src/main.ts",
+    "test": "node --experimental-strip-types --test apps/api/test/*.test.ts packages/authz/test/authz.test.ts packages/connectors/feishu/test/organization-sync.test.ts packages/connectors/kodbox/test/permission-mapping.test.ts modules/platform/src/organization-sync-service.test.ts",
+    "check": "node scripts/check-architecture.mjs && node scripts/check-sql-migrations.mjs",
+    "typecheck": "tsc --noEmit",
+    "verify:db": "node scripts/verify-platform-db.mjs",
+    "test:acceptance": "node --experimental-strip-types scripts/acceptance/run.mjs",
+    "accept:m1": "node --experimental-strip-types scripts/acceptance/m1-matrix.mjs",
+    "accept:m2": "node --experimental-strip-types scripts/acceptance/m2-approval-settings.mjs",
+    "accept:m3": "node --experimental-strip-types scripts/acceptance/m3-business-flows.mjs",
+    "accept:m4": "node --experimental-strip-types scripts/acceptance/m4-ai-execution.mjs",
+    "accept:m5": "node --experimental-strip-types scripts/acceptance/m5-kodbox-metrics.mjs",
+    "accept:w1": "node scripts/acceptance/w1-worker-index.mjs",
+    "accept:a2": "node --experimental-strip-types scripts/acceptance/a2-finance-atomicity.mjs",
+    "accept:a1": "node --experimental-strip-types scripts/acceptance/a1-abac-data-domain.mjs",
+    "accept:a3": "node --experimental-strip-types scripts/acceptance/a3-ai-write-tools.mjs",
+    "accept:q1": "node --experimental-strip-types scripts/acceptance/q1-job-queue.mjs",
+    "accept:mfg": "node --experimental-strip-types scripts/acceptance/mfg-e2e.mjs",
+    "accept:mfg2": "node --experimental-strip-types scripts/acceptance/mfg2-e2e.mjs",
+    "accept:sw": "node --experimental-strip-types scripts/acceptance/sw-e2e.mjs",
+    "accept:m6:install": "bash scripts/m6-clean-install-check.sh",
+    "accept:m6:backup": "bash scripts/backup-restore-test.sh",
+    "build:desktop": "node apps/desktop/build.mjs",
+    "test:ai-execution": "node --experimental-strip-types scripts/acceptance/run.mjs M4",
+    "accept:full": "node --experimental-strip-types scripts/acceptance/full-e2e.mjs",
+    "accept:demo": "node --experimental-strip-types scripts/acceptance/demo-e2e.mjs",
+    "accept:deep": "node --experimental-strip-types scripts/acceptance/deep-e2e.mjs",
+    "accept:smart": "node --experimental-strip-types scripts/acceptance/smart-e2e.mjs",
+    "smoke": "node scripts/smoke/api-smoke.mjs",
+    "e2e": "playwright test",
+    "e2e:a11y": "playwright test e2e/a11y.spec.ts",
+    "e2e:approval": "playwright test e2e/approval-advanced.spec.ts",
+    "eval:ai": "node scripts/ai-eval.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.2",
+    "typescript": "^5.9.3"
+  }
+}

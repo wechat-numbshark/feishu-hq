@@ -1,0 +1,8 @@
+{
+  "name": "equipment",
+  "schema": "equipment",
+  "description": "生产设备台账、点检标准与执行、停机台账、保养计划与 OEE 可用率派生",
+  "ownedEntities": ["asset", "checklist", "checklist_item", "inspection", "downtime_event", "maintenance_plan", "maintenance_record"],
+  "publishes": ["equipment.inspection.abnormal.v1"],
+  "consumes": ["mfg.work_order.released.v1"]
+}

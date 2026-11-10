@@ -1,0 +1,23 @@
+{
+  "name": "sales",
+  "schema": "sales",
+  "description": "销售订单(SO)、发货出库（库存联动）与订单毛利核算（对接工单完工成本）",
+  "ownedEntities": [
+    "order",
+    "order_line",
+    "shipment",
+    "shipment_line",
+    "contract",
+    "subscription"
+  ],
+  "publishes": [
+    "sales.order.confirmed.v1",
+    "sales.shipment.created.v1",
+    "sales.contract.signed.v1",
+    "sales.subscription.activated.v1"
+  ],
+  "consumes": [
+    "crm.opportunity.won.v1",
+    "mfg.work_order.completed.v1"
+  ]
+}

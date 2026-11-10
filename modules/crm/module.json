@@ -1,0 +1,9 @@
+{
+  "name": "crm",
+  "schema": "crm",
+  "description": "客户、线索、商机、销售活动和预测",
+  "ownedEntities": ["lead", "account_team", "opportunity", "sales_activity", "forecast"],
+  "publishes": ["crm.opportunity.won.v1", "crm.account.owner_changed.v1"],
+  "consumes": ["finance.receivable.overdue.v1", "project.project.progressed.v1"]
+}
+

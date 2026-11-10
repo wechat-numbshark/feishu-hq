@@ -1,0 +1,34 @@
+openapi: 3.1.0
+info:
+  title: Feishu HQ Platform API
+  version: 0.1.0
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        "200":
+          description: Service is healthy
+  /v1/platform/capabilities:
+    get:
+      operationId: getPlatformCapabilities
+      responses:
+        "200":
+          description: Enabled platform modules and shared capabilities
+  /v1/authz/explain:
+    post:
+      operationId: explainAuthorization
+      description: Evaluate one authorization request and return the matching policy explanation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [subject, action, resource, context]
+      responses:
+        "200":
+          description: Authorization decision
+        "400":
+          description: Invalid authorization request
+

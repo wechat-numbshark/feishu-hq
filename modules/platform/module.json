@@ -1,0 +1,9 @@
+{
+  "name": "platform",
+  "schema": "platform",
+  "description": "租户、法人、组织、身份、权限、审计和资源目录",
+  "ownedEntities": ["tenant", "legal_entity", "org_unit", "person", "employment", "position", "cost_center", "resource"],
+  "publishes": ["platform.organization.synced.v1", "platform.employment.changed.v1", "authz.policy.published.v1"],
+  "consumes": []
+}
+

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/platform.organization.synced.v1.schema.json",
+  "title": "platform.organization.synced.v1 payload",
+  "type": "object",
+  "required": ["orgUnitId", "source", "externalId", "changeType"],
+  "properties": {
+    "orgUnitId": { "type": "string", "format": "uuid" },
+    "source": { "type": "string", "enum": ["feishu", "platform", "hr_system"] },
+    "externalId": { "type": "string" },
+    "changeType": { "type": "string", "enum": ["created", "updated", "moved", "disabled"] }
+  },
+  "additionalProperties": false
+}
+

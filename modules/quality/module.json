@@ -1,0 +1,8 @@
+{
+  "name": "quality",
+  "schema": "qms",
+  "description": "来料检/过程检/成品检、实测值记录、判定回写（收货与库存联动）与不合格品 NCR 处置",
+  "ownedEntities": ["inspection", "inspection_measurement", "ncr"],
+  "publishes": ["qms.inspection.failed.v1", "qms.ncr.created.v1"],
+  "consumes": ["purchase.purchase_order.approved.v1", "mfg.work_order.released.v1"]
+}

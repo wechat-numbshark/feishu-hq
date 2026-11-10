@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/project.project.created.v1.schema.json",
+  "title": "project.project.created.v1 payload",
+  "type": "object",
+  "required": ["projectId", "code", "name", "ownerPersonId"],
+  "properties": {
+    "projectId": { "type": "string", "format": "uuid" },
+    "code": { "type": "string" },
+    "name": { "type": "string" },
+    "ownerPersonId": { "type": "string", "format": "uuid" },
+    "customerPartyIds": { "type": "array", "items": { "type": "string", "format": "uuid" } },
+    "contractIds": { "type": "array", "items": { "type": "string", "format": "uuid" } }
+  },
+  "additionalProperties": false
+}
+

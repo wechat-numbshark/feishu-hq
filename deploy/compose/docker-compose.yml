@@ -1,0 +1,227 @@
+name: feishu-hq
+
+services:
+  # ── 基础设施
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: feishu_hq
+      POSTGRES_USER: hq_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      TZ: Asia/Shanghai
+    ports:
+      - "127.0.0.1:${HOST_PG_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hq_admin -d feishu_hq"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  minio:
+    image: ghcr.io/coollabsio/minio:RELEASE.2025-04-22T22-12-26Z
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-feishu_hq}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?set MINIO_ROOT_PASSWORD}
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/9000'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ── Kodbox/可道云 数据库（Kodbox 官方镜像仅支持 MySQL/SQLite 自动安装）
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: kodbox
+      MYSQL_USER: ${KODBOX_DB_USER:-kodbox}
+      MYSQL_PASSWORD: ${KODBOX_DB_PASSWORD:?set KODBOX_DB_PASSWORD}
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # ── Kodbox/可道云 (文件管理与 NAS)
+  kodbox:
+    image: kodcloud/kodbox:1.59
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: kodbox
+      MYSQL_USER: ${KODBOX_DB_USER:-kodbox}
+      MYSQL_PASSWORD: ${KODBOX_DB_PASSWORD:?set KODBOX_DB_PASSWORD}
+      KODBOX_ADMIN_USER: ${KODBOX_ADMIN_USER:-admin}
+      KODBOX_ADMIN_PASSWORD: ${KODBOX_ADMIN_PASSWORD:?set KODBOX_ADMIN_PASSWORD}
+      KODBOX_STORAGE_PATH: /var/www/data
+      TZ: Asia/Shanghai
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - kodbox_data:/var/www/data
+      - kodbox_config:/var/www/config
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost/ | grep -q 'kodbox' || curl -sf http://localhost:80/ | grep -q 'kodbox'"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  # ── 数据库初始化（一次性，运行完自动退出）
+  migrate:
+    build:
+      context: ../..
+      dockerfile: deploy/compose/Dockerfile.migrate
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://hq_admin:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@postgres:5432/feishu_hq?sslmode=disable
+    restart: "no"
+
+  # ── 应用服务
+  api:
+    build:
+      context: ../..
+      dockerfile: deploy/compose/Dockerfile.api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOST: 0.0.0.0
+      # 应用以特权迁移/管理角色登录，随后在事务内 SET LOCAL ROLE hq_app 交由 RLS 收敛
+      # （hq_app 为 NOLOGIN，仅用于角色切换；见 apps/api/src/db.ts 与 migration 0004）。
+      DATABASE_URL: postgresql://hq_admin:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@postgres:5432/feishu_hq?sslmode=disable
+      SESSION_SECRET: ${SESSION_SECRET:?set SESSION_SECRET}
+      # 生产默认关闭演示登录；确需公开 demo 时显式设 DEMO_MODE=true
+      DEMO_MODE: ${DEMO_MODE:-false}
+      # 位于 nginx/反代之后时信任 X-Forwarded-For；直连时设 false
+      TRUST_PROXY: ${TRUST_PROXY:-true}
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      # HTTP 试用环境设 false；HTTPS 生产保持 true
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      # 飞书 OAuth（可选）
+      FEISHU_APP_ID: ${FEISHU_APP_ID:-}
+      FEISHU_APP_SECRET: ${FEISHU_APP_SECRET:-}
+      FEISHU_ENCRYPT_KEY: ${FEISHU_ENCRYPT_KEY:-}
+      FEISHU_VERIFICATION_TOKEN: ${FEISHU_VERIFICATION_TOKEN:-}
+      FEISHU_REDIRECT_URI: ${FEISHU_REDIRECT_URI:-}
+      # AI 接入（可选，支持 OpenAI / Anthropic / 本地 Ollama）
+      MODEL_PROVIDER: ${MODEL_PROVIDER:-openai}
+      MODEL_BASE_URL: ${MODEL_BASE_URL:-https://api.openai.com/v1}
+      MODEL_API_KEY: ${MODEL_API_KEY:-}
+      MODEL_NAME: ${MODEL_NAME:-gpt-4o-mini}
+      SETTINGS_ENCRYPTION_KEY: ${SETTINGS_ENCRYPTION_KEY:-}
+      AI_DEFAULT_MONTHLY_TOKENS: ${AI_DEFAULT_MONTHLY_TOKENS:-2000000}
+      AI_DEFAULT_MONTHLY_COST_MICROS: ${AI_DEFAULT_MONTHLY_COST_MICROS:-20000000}
+      AI_INPUT_PRICE_PER_1M: ${AI_INPUT_PRICE_PER_1M:-2.5}
+      AI_OUTPUT_PRICE_PER_1M: ${AI_OUTPUT_PRICE_PER_1M:-10}
+      # MinIO 文件存储
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-feishu_hq}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      TZ: Asia/Shanghai
+    ports:
+      - "${API_PORT:-3000}:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:3000/health | grep -q 'ok'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  worker:
+    build:
+      context: ../..
+      dockerfile: deploy/compose/Dockerfile.worker
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_URL: postgresql://hq_admin:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@postgres:5432/feishu_hq?sslmode=disable
+      FEISHU_APP_ID: ${FEISHU_APP_ID:-}
+      FEISHU_APP_SECRET: ${FEISHU_APP_SECRET:-}
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
+      WORKER_OUTBOX_INTERVAL: ${WORKER_OUTBOX_INTERVAL:-5000}
+      WORKER_SNAPSHOT_INTERVAL: ${WORKER_SNAPSHOT_INTERVAL:-3600000}
+      TZ: Asia/Shanghai
+
+  # ── 可选监控栈：docker-compose --profile monitoring up -d
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    profiles: ["monitoring"]
+    restart: unless-stopped
+    volumes:
+      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ../monitoring/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    depends_on:
+      api:
+        condition: service_started
+
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    profiles: ["monitoring"]
+    restart: unless-stopped
+    volumes:
+      - ../monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+    ports:
+      - "127.0.0.1:9093:9093"
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    profiles: ["monitoring"]
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ../monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "127.0.0.1:3002:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data: {}
+  prometheus_data: {}
+  alertmanager_data: {}
+  grafana_data: {}
+  minio_data: {}
+  mysql_data: {}
+  kodbox_data: {}
+  kodbox_config: {}

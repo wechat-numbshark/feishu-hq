@@ -1,0 +1,9 @@
+{
+  "name": "it",
+  "schema": "it",
+  "description": "IT 服务台、资产、账号、许可证和 CMDB",
+  "ownedEntities": ["ticket", "asset", "asset_assignment", "configuration_item", "license", "account_lifecycle"],
+  "publishes": ["it.asset.assigned.v1", "it.ticket.sla_breached.v1", "it.account.revoked.v1"],
+  "consumes": ["hr.employment.started.v1", "hr.employment.ended.v1"]
+}
+

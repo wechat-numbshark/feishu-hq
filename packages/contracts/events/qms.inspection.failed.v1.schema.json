@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/qms.inspection.failed.v1.schema.json",
+  "title": "qms.inspection.failed.v1 payload",
+  "type": "object",
+  "required": ["inspection_number", "inspection_type"],
+  "properties": {
+    "inspection_number": { "type": "string" },
+    "inspection_type": { "type": "string", "enum": ["incoming", "in_process", "final"] },
+    "part_id": { "type": ["string", "null"], "format": "uuid" }
+  },
+  "additionalProperties": false
+}

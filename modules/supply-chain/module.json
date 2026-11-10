@@ -1,0 +1,12 @@
+{
+  "name": "supply-chain",
+  "schema": "purchase",
+  "description": "供应商、请购(PR)、采购订单(PO)、收货、供应商发票三单匹配与应付；库存现存量与流水(stock)",
+  "ownedEntities": ["supplier", "requisition", "purchase_order", "goods_receipt", "supplier_invoice"],
+  "publishes": [
+    "purchase.purchase_order.approved.v1",
+    "purchase.goods_receipt.confirmed.v1",
+    "purchase.invoice.matched.v1"
+  ],
+  "consumes": ["mfg.work_order.created.v1", "qms.inspection.failed.v1", "sales.shipment.created.v1"]
+}

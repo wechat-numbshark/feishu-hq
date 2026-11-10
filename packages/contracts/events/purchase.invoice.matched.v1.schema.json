@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://feishu-hq.local/schemas/purchase.invoice.matched.v1.schema.json",
+  "title": "purchase.invoice.matched.v1 payload",
+  "type": "object",
+  "required": ["invoice_number", "expected_cents", "payable_invoice_id"],
+  "properties": {
+    "invoice_number": { "type": "string" },
+    "expected_cents": { "type": "number" },
+    "payable_invoice_id": { "type": "string", "format": "uuid" }
+  },
+  "additionalProperties": false
+}

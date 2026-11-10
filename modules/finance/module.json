@@ -1,0 +1,9 @@
+{
+  "name": "finance",
+  "schema": "finance",
+  "description": "合同、预算、费用、发票、应收应付和经营财务",
+  "ownedEntities": ["contract", "budget", "expense", "invoice", "receivable", "payable", "payment_plan"],
+  "publishes": ["finance.contract.activated.v1", "finance.receivable.overdue.v1", "finance.payment.completed.v1"],
+  "consumes": ["crm.opportunity.won.v1", "project.project.created.v1"]
+}
+

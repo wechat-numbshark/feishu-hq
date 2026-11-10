@@ -1,0 +1,12 @@
+{
+  "name": "manufacturing",
+  "schema": "mfg",
+  "description": "零件主数据、BOM、工艺路线、生产工单、领料、报工与完工成本归集",
+  "ownedEntities": ["part", "bom", "bom_line", "routing", "routing_op", "work_order", "work_order_op", "work_report", "work_order_cost"],
+  "publishes": [
+    "mfg.work_order.created.v1",
+    "mfg.work_order.released.v1",
+    "mfg.work_order.completed.v1"
+  ],
+  "consumes": ["purchase.goods_receipt.confirmed.v1", "sales.order.confirmed.v1"]
+}
