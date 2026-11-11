@@ -12,7 +12,7 @@ docker compose --env-file deploy/compose/.env -f deploy/compose/docker-compose.y
 docker compose --env-file deploy/compose/.env -f deploy/compose/docker-compose.yml ps
 ```
 
-迁移容器会应用 `database/migrations/` 中的 SQL；访问 `http://localhost:3000`。本地体验可开启 `DEMO_MODE=true`；公开部署前应关闭演示模式，并配置 HTTPS、强随机密钥、备份和访问控制。
+迁移容器会应用 `database/migrations/` 中的 SQL；访问 `http://localhost:3000`。本地体验请在 `.env` 中设置 `DEMO_MODE=true`、`TRUST_PROXY=false`、`COOKIE_SECURE=false`。公开部署前应关闭演示模式，恢复 HTTPS 所需的安全 Cookie，并配置 HTTPS、强随机密钥、备份和访问控制。
 
 ## 单独运行
 

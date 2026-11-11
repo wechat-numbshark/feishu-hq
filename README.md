@@ -35,7 +35,7 @@ git clone https://github.com/wechat-numbshark/feishu-hq.git
 cd feishu-hq
 npm ci
 cp deploy/compose/.env.example deploy/compose/.env
-# 设置随机密码和 SESSION_SECRET
+# 设置随机密码和 SESSION_SECRET；本地体验另设 DEMO_MODE=true、TRUST_PROXY=false、COOKIE_SECURE=false
 docker compose --env-file deploy/compose/.env -f deploy/compose/docker-compose.yml up -d
 ```
 
