@@ -6,6 +6,8 @@
 
 In China, Lark is known as **Feishu (飞书)**. The interface and primary documentation are in Chinese. The demo uses sample companies and roles; do not enter real customer data.
 
+Need help with installation, a private deployment, or a customization that follows your workflow? Contact us at [buildwithneo.cn](https://buildwithneo.cn).
+
 ![Headquarters OS demo workbench](./docs/screenshots/overview-20261110.png)
 
 ## Included today

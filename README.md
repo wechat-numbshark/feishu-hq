@@ -6,6 +6,8 @@
 
 > 项目以中文为主。海外开发者可将飞书理解为 Lark。在线体验使用演示数据，请勿输入真实客户信息。
 
+需要安装协助、私有化部署，或按你的业务流程定制，可通过 [buildwithneo.cn](https://buildwithneo.cn) 联系。
+
 ![总部 OS 演示工作台：角色、经营总览、项目与 AI 助手](./docs/screenshots/overview-20261110.png)
 
 ## 已有基础
