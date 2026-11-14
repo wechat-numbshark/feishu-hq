@@ -2,11 +2,11 @@
 
 **Start with the Lark plumbing in place.** Headquarters OS brings SSO, organization sync, sessions, tenant isolation, authorization, audit trails, and working business examples into one open-source codebase. It reduces repetitive setup before you build your own workflows.
 
-[简体中文](./README.md) · [日本語](./README.ja.md) · [Live demo](http://43.152.237.5)
+[简体中文](./README.md) · [日本語](./README.ja.md) · [Overview](https://feishubanlv.com/feishu-hq) · [Live demo](https://feishubanlv.com/feishu-hq/demo/)
 
 In China, Lark is known as **Feishu (飞书)**. The interface and primary documentation are in Chinese. The demo uses sample companies and roles; do not enter real customer data.
 
-Need help with installation, a private deployment, or a customization that follows your workflow? Contact us at [buildwithneo.cn](https://buildwithneo.cn).
+> **Enterprise AI consulting & development** (Feishu/Lark integration, private deployment, custom builds) → [buildwithneo.cn](https://buildwithneo.cn/)
 
 ![Headquarters OS demo workbench](./docs/screenshots/overview-20261110.png)
 
@@ -24,7 +24,7 @@ Robot messaging and some interactive-card code already exist. Future releases wi
 
 ## Try it or run locally
 
-Open the [live demo](http://43.152.237.5), choose the demo organization, and switch roles to explore the workbench, projects, customers, and finance. Initial loading depends on the server network; previously loaded views use a local cache.
+Start with the [overview page](https://feishubanlv.com/feishu-hq), then open the [live demo](https://feishubanlv.com/feishu-hq/demo/), choose the demo organization, and switch roles to explore the workbench, projects, customers, and finance. Initial loading depends on the server network; previously loaded views use a local cache.
 
 Requirements: Node.js 22+, PostgreSQL 16 or Docker Desktop.
 

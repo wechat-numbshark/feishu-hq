@@ -2,11 +2,11 @@
 
 **把飞书接入、身份、组织、权限和业务示例放进一个可运行的起点。** 总部 OS 整合 SSO、组织同步、会话、多租户隔离、审批和管理界面，减少飞书项目反复搭建基础功能的工作量，让团队更快进入自己的业务开发。
 
-[English](./README.en.md) · [日本語](./README.ja.md) · [在线体验](http://43.152.237.5) · [飞书伴侣](https://feishubanlv.com)
+[English](./README.en.md) · [日本語](./README.ja.md) · [介绍页](https://feishubanlv.com/feishu-hq) · [在线演示](https://feishubanlv.com/feishu-hq/demo/) · [飞书伴侣](https://feishubanlv.com)
 
 > 项目以中文为主。海外开发者可将飞书理解为 Lark。在线体验使用演示数据，请勿输入真实客户信息。
 
-需要安装协助、私有化部署，或按你的业务流程定制，可通过 [buildwithneo.cn](https://buildwithneo.cn) 联系。
+> **接企业 AI 化咨询与开发**（飞书/Lark 集成、私有化部署、定制开发）→ [buildwithneo.cn](https://buildwithneo.cn/)
 
 ![总部 OS 演示工作台：角色、经营总览、项目与 AI 助手](./docs/screenshots/overview-20261110.png)
 
@@ -26,7 +26,7 @@
 
 ## 在线体验
 
-访问 [演示环境](http://43.152.237.5)，选择「进入体验企业」，切换公司和岗位，查看工作台、项目、客户与财务等页面。首次加载受演示服务器网络影响；已加载页面支持本地缓存。
+可先打开[介绍页](https://feishubanlv.com/feishu-hq)，再进入[在线演示](https://feishubanlv.com/feishu-hq/demo/)，选择「进入体验企业」，切换公司和岗位，查看工作台、项目、客户与财务等页面。首次加载受演示服务器网络影响；已加载页面支持本地缓存。
 
 ## 本地运行
 
